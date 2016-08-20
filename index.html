@@ -1,26 +1,20 @@
-
 <body>
+  <h3>
+    Text to marbles
+  </h3>
+  <pre>
+    <code>
+      (a )------(b )-----
+      ----(1 )(2 )---(3 )
+      ----(a1)--(b2)-----
+    </code>
+  </pre>
   <div id='marbles'>
-    [a ]-----[a ]-
-    ----[b ][b ]---[b ]
-    ----[ab]-----
+      (a )------(b )-----
+      ----(1 )(2 )---(3 )
+      ----(a1)--(b2)-----
   </div>
-
 </body>
-
-<style>
-* {
-  box-sizing: border-box;
-}
-
-#marbles {
-  max-width: 500px;
-  margin-top: 20px;
-  padding: 10px;
-  background: rgba(0,0,0,0.08);
-}
-
-</style>
 
 <script>
 
@@ -39,11 +33,11 @@ var canvas = document.createElement('canvas');
 
 var ctx = canvas.getContext('2d')
 
-var fullWidth = innerWidth(el)
+var fullWidth = getInnerWidth(el) - 15
 
 var rows = rowsText.map(function(x, i) {
   var o = {}
-  o.units = x.split(/((?=\[.{1,2}\])|[-])/).filter(Boolean)
+  o.units = x.split(/((?=\(.{1,2}\))|[-])/).filter(Boolean)
   o.len = o.units.length
   return o
 })
@@ -53,48 +47,70 @@ var longestRow = rows.reduce(function(a, b) {
   return b
 }, {}).len + 1
 
+var colors = ['#5f8ace', '#d4c52e', '#77a66f', '#a7784e']
+
 var unitSize = fullWidth / longestRow
 
 canvas.width = fullWidth
-canvas.height = unitSize  * rows.length * 1.1
+canvas.height = unitSize  * rows.length * 1.2
 
 rows.map(function(row, i) {
   draw(row, i)
 })
 
-var colors = ['red', 'yellow', 'blue']
 
 function draw(row, i) {
-  var y = (i + 0.5) * unitSize * 1.1
+  var y = (i + 0.5) * unitSize * 1.2
   horizontalLine(y)
-  marbles(row, y)
+  triangle(y)
+  marbles(row, y, i)
 }
 
-function marbles(row, y) {
+function marbles(row, y, i) {
+  console.log(i)
   var radius = unitSize / 2 
   var x = 0
   var unitSizeCopy = unitSize
-  row.units.map(function(unit, i) {
+  row.units.map(function(unit) {
     x += unitSizeCopy 
     if(unit !== '-') {
+      // draw circles
       ctx.beginPath()
       ctx.arc(x, y, radius, 0, 2 * Math.PI, false)
-      ctx.fillStyle = 'green'
-      ctx.fill()
+      ctx.fillStyle = colors[i % colors.length] 
+      ctx.fill()      
+      // draw text
+      var text = unit.replace(/\(|\)/g, '').trim()
+      var fontSize = unitSize / 2 
+      ctx.font =  unitSize / 2 + 'px monospace'
+      ctx.fillStyle = 'white'
+      ctx.textBaseline = 'middle'
+      ctx.textAlign = 'center'
+      ctx.fillText(text, x, y)
     }
   })
 }
 
 function horizontalLine(y) {
+  ctx.beginPath()
   ctx.moveTo(0, y)
   ctx.lineTo(fullWidth, y)
-  ctx.closePath()
   ctx.lineWidth = 1
   ctx.strokeStyle = 'grey' 
+  ctx.closePath()
   ctx.stroke()
 }
 
-function innerWidth(el) {
+function triangle(y) {
+  ctx.beginPath()
+  ctx.moveTo(fullWidth, y)
+  ctx.lineTo(fullWidth - 7, y + 4)
+  ctx.lineTo(fullWidth - 7, y - 4)
+  ctx.fillStyle = 'grey'
+  ctx.fill()
+}
+
+function getInnerWidth(el) {
   var width = el.clientWidth
   var style = window.getComputedStyle ? getComputedStyle(el, null) : el.currentStyle
   width -= style.paddingLeft ? parseInt(style.paddingLeft) : 0
