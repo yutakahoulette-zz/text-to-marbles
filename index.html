@@ -1,0 +1,112 @@
+
+<body>
+  <div id='marbles'>
+    [a ]-----[a ]-
+    ----[b ][b ]---[b ]
+    ----[ab]-----
+  </div>
+
+</body>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#marbles {
+  max-width: 500px;
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(0,0,0,0.08);
+}
+
+</style>
+
+<script>
+
+var el = document.getElementById('marbles')
+
+el.style.visibility = 'hidden'
+
+var rowsText = el.innerHTML
+  .split(/\n/)
+  .map(function(x) {return x.replace(/^\s+|\s+$/g,'')})  
+  .filter(Boolean)
+
+el.innerHTML = ''
+
+var canvas = document.createElement('canvas');
+
+var ctx = canvas.getContext('2d')
+
+var fullWidth = innerWidth(el)
+
+var rows = rowsText.map(function(x, i) {
+  var o = {}
+  o.units = x.split(/((?=\[.{1,2}\])|[-])/).filter(Boolean)
+  o.len = o.units.length
+  return o
+})
+
+var longestRow = rows.reduce(function(a, b) {
+  if(a.len > b.len) return a
+  return b
+}, {}).len + 1
+
+var unitSize = fullWidth / longestRow
+
+canvas.width = fullWidth
+canvas.height = unitSize  * rows.length * 1.1
+
+rows.map(function(row, i) {
+  draw(row, i)
+})
+
+var colors = ['red', 'yellow', 'blue']
+
+function draw(row, i) {
+  var y = (i + 0.5) * unitSize * 1.1
+  horizontalLine(y)
+  marbles(row, y)
+}
+
+function marbles(row, y) {
+  var radius = unitSize / 2 
+  var x = 0
+  var unitSizeCopy = unitSize
+  row.units.map(function(unit, i) {
+    x += unitSizeCopy 
+    if(unit !== '-') {
+      ctx.beginPath()
+      ctx.arc(x, y, radius, 0, 2 * Math.PI, false)
+      ctx.fillStyle = 'green'
+      ctx.fill()
+    }
+  })
+}
+
+function horizontalLine(y) {
+  ctx.moveTo(0, y)
+  ctx.lineTo(fullWidth, y)
+  ctx.closePath()
+  ctx.lineWidth = 1
+  ctx.strokeStyle = 'grey' 
+  ctx.stroke()
+}
+
+function innerWidth(el) {
+  var width = el.clientWidth
+  var style = window.getComputedStyle ? getComputedStyle(el, null) : el.currentStyle
+  width -= style.paddingLeft ? parseInt(style.paddingLeft) : 0
+  width -= style.paddingRight ? parseInt(style.paddingRight) : 0
+  return width
+}
+
+console.log(rowsText)
+
+el.appendChild(canvas)
+el.style.visibility = 'visible'
+
+</script>
+
+
