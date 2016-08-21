@@ -1,0 +1,25 @@
+{
+  "name": "marbles",
+  "version": "1.0.0",
+  "description": "Converts text to a canvas drawing of marbles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yutakahoulette/text-to-marbles.git"
+  },
+  "keywords": [
+    "functional",
+    "reactive",
+    "marbles",
+    "visualization"
+  ],
+  "author": "Yutaka Houlette",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yutakahoulette/text-to-marbles/issues"
+  },
+  "homepage": "https://github.com/yutakahoulette/text-to-marbles#readme"
+}

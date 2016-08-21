@@ -1,30 +1,10 @@
-<body>
-  <h3>
-    Text to marbles
-  </h3>
-  <pre>
-    <code>
-      (a )------(b )-----
-      ----(1 )(2 )---(3 )
-      ----(a1)--(b2)-----
-    </code>
-  </pre>
-  <div id='marbles'>
-      (a )------(b )-----
-      ----(1 )(2 )---(3 )
-      ----(a1)--(b2)-----
-  </div>
-</body>
-
-<script>
-
 var el = document.getElementById('marbles')
 
 el.style.visibility = 'hidden'
 
 var rowsText = el.innerHTML
-  .split(/\n/)
-  .map(function(x) {return x.replace(/^\s+|\s+$/g,'')})  
+  .replace(/\s/g, '')
+  .split('|')
   .filter(Boolean)
 
 el.innerHTML = ''
@@ -37,7 +17,7 @@ var fullWidth = getInnerWidth(el) - 15
 
 var rows = rowsText.map(function(x, i) {
   var o = {}
-  o.units = x.split(/((?=\(.{1,2}\))|[-])/).filter(Boolean)
+  o.units = x.split(',')
   o.len = o.units.length
   return o
 })
@@ -67,26 +47,24 @@ function draw(row, i) {
 }
 
 function marbles(row, y, i) {
-  console.log(i)
   var radius = unitSize / 2 
   var x = 0
   var unitSizeCopy = unitSize
   row.units.map(function(unit) {
     x += unitSizeCopy 
-    if(unit !== '-') {
+    if(unit) {
       // draw circles
       ctx.beginPath()
       ctx.arc(x, y, radius, 0, 2 * Math.PI, false)
       ctx.fillStyle = colors[i % colors.length] 
       ctx.fill()      
       // draw text
-      var text = unit.replace(/\(|\)/g, '').trim()
       var fontSize = unitSize / 2 
       ctx.font =  unitSize / 2 + 'px monospace'
       ctx.fillStyle = 'white'
       ctx.textBaseline = 'middle'
       ctx.textAlign = 'center'
-      ctx.fillText(text, x, y)
+      ctx.fillText(unit, x, y)
     }
   })
 }
@@ -122,7 +100,4 @@ console.log(rowsText)
 
 el.appendChild(canvas)
 el.style.visibility = 'visible'
-
-</script>
-
 
