@@ -86,18 +86,19 @@ function marbles(ctx, row, y, i, unitSize, colors) {
   var x = 0
   row.map(function(unit) {
     x += unitSize 
-    if(unit) {
+    if(unit && unit != '|') {
       // draw circles
       ctx.beginPath()
       ctx.arc(x, y, radius, 0, 2 * Math.PI, false)
       ctx.fillStyle = colors[i % colors.length] 
       ctx.fill()      
-      // draw text
+    }
+    if(unit) {
       var fontSize = unitSize * 0.45 
       ctx.font =  fontSize + 'px monospace'
-      ctx.fillStyle = 'white'
       ctx.textBaseline = 'middle'
       ctx.textAlign = 'center'
+      ctx.fillStyle = unit != '|' ? 'white' : 'grey'
       ctx.fillText(unit, x, y)
     }
   })
