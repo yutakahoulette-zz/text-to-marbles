@@ -39,8 +39,8 @@ function longestRow(rows) {
 
 function textToRows(el) {
   return el.innerHTML
-    .replace(/\s/g, '')
-    .split('|')
+    .replace(/ +?/g, '')
+    .split('\n')
     .filter(Boolean)
     .map(function(x){return x.split(',')})
 }

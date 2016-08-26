@@ -4,7 +4,7 @@
   "description": "Converts text to a canvas drawing of marbles",
   "main": "index.js",
   "scripts": {
-    "demo": "open demo/index.html && watchify demo/index.js -o demo/build -v"
+    "demo": "open demo/index.html && watchify demo/index.js -o demo/build.js -v"
   },
   "repository": {
     "type": "git",
