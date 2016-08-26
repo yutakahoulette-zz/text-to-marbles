@@ -1,16 +1,16 @@
 var textToMarbles = require('../index.js')
 
-var input = document.getElementById('input')
-var marbles = document.getElementById('marbles')    
+var textarea = document.getElementsByTagName('textarea')[0]
+var marbles = document.getElementsByTagName('figure')[0]
 
-input.oninput = draw 
+textarea.oninput = draw 
 
 function draw(e) {
   marbles.innerHTML = e.target.value
   textToMarbles(marbles)
 }
 
-marbles.innerHTML = input.value
+marbles.innerHTML = textarea.value
 
 textToMarbles(marbles)
 

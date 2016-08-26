@@ -1,0 +1,27 @@
+@import url('https://necolas.github.io/normalize.css/4.1.1/normalize.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+* {
+  font-family: 'Roboto Mono', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 15px;
+}
+
+main {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+figure {
+  margin: 30px 0 50px 0;
+}
+
+textarea {
+  padding: 15px;
+  resize: vertical;
+  width: 100%;
+}
+

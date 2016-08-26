@@ -1,17 +1,17 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/yutakahoulette/marbles/demo/index.js":[function(require,module,exports){
 var textToMarbles = require('../index.js')
 
-var input = document.getElementById('input')
-var marbles = document.getElementById('marbles')    
+var textarea = document.getElementsByTagName('textarea')[0]
+var marbles = document.getElementsByTagName('figure')[0]
 
-input.oninput = draw 
+textarea.oninput = draw 
 
 function draw(e) {
   marbles.innerHTML = e.target.value
   textToMarbles(marbles)
 }
 
-marbles.innerHTML = input.value
+marbles.innerHTML = textarea.value
 
 textToMarbles(marbles)
 
@@ -94,8 +94,8 @@ function horizontalLine(ctx, y, fullWidth) {
 function triangle(ctx, y, fullWidth) {
   ctx.beginPath()
   ctx.moveTo(fullWidth, y)
-  ctx.lineTo(fullWidth - 7, y + 4)
-  ctx.lineTo(fullWidth - 7, y - 4)
+  ctx.lineTo(fullWidth - 8, y + 5)
+  ctx.lineTo(fullWidth - 8, y - 5)
   ctx.fillStyle = 'grey'
   ctx.fill()
 }
@@ -103,9 +103,8 @@ function triangle(ctx, y, fullWidth) {
 function marbles(ctx, row, y, i, unitSize, colors) {
   var radius = unitSize / 2 
   var x = 0
-  var unitSizeCopy = unitSize
   row.map(function(unit) {
-    x += unitSizeCopy 
+    x += unitSize 
     if(unit) {
       // draw circles
       ctx.beginPath()
