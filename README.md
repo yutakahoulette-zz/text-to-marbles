@@ -3,7 +3,7 @@
 A small no-dependencies package that converts text representations of streams/observables into static canvas visualizations. Useful for adding visualizations to docs. Based on [statlz](https://github.com/staltz)'s awesome interactive [rxmarbles project](https://github.com/staltz/rxmarbles).
 
 
-### See [demo](https://yutakahoulette.github.io/text-to-marbles/demo).
+#### [See demo](https://yutakahoulette.github.io/text-to-marbles/demo).
 
 ## Usage
 
@@ -11,7 +11,7 @@ A small no-dependencies package that converts text representations of streams/ob
 npm intall text-to-marbles
 ```
 
-### HTML
+#### HTML
 ```HTML
 <div id='marbles'>
 , ,1,2,3, ,4,|
@@ -26,7 +26,7 @@ npm intall text-to-marbles
 - a `|` represents the end of a stream/observable
 - a `#` at the beginning of a new line creates a text row
 
-### JS
+#### JS
 ```JS
 import textToMarbles from 'text-to-marbles'
 
@@ -37,10 +37,5 @@ let config = {colors: ['blue', 'yellow', 'green']}
 textToMarbles(document.getElementById('marbles'), config)
 ```
 
-### Config
+#### Config
 - colors: Takes an array of colors. Each color will be applied to the corresponding stream's/observable's marbles.
-
-
-
-
-
