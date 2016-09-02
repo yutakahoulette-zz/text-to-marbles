@@ -1,6 +1,6 @@
 {
   "name": "text-to-marbles",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Converts text representations of streams/observables into static canvas visualizations",
   "main": "index.js",
   "repository": {
