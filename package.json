@@ -1,5 +1,5 @@
 {
-  "name": "marbles",
+  "name": "text to marbles",
   "version": "0.0.1",
   "description": "Converts text to a canvas drawing of marbles",
   "main": "index.js",
