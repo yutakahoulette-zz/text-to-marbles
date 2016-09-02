@@ -13,6 +13,8 @@
   "keywords": [
     "functional",
     "reactive",
+    "streams",
+    "observables",
     "marbles",
     "visualization"
   ],
