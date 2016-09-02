@@ -1,7 +1,7 @@
 {
   "name": "text-to-marbles",
   "version": "0.0.1",
-  "description": "Converts text to a canvas drawing of marbles",
+  "description": "Converts text representations of streams/observables into static canvas visualizations",
   "main": "index.js",
   "scripts": {
     "demo": "open demo/index.html && watchify demo/index.js -o demo/build.js -v"
