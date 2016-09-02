@@ -12,16 +12,17 @@ body {
 
 main {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 10px auto 0 auto;
 }
 
 figure {
-  margin: 30px 0 50px 0;
+  margin: 40px 0 50px 0;
 }
 
 textarea {
   padding: 15px;
   resize: vertical;
   width: 100%;
+  font-size: 16px;
 }
 

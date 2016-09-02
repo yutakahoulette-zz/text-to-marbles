@@ -21,7 +21,7 @@ function textToMarbles(config) {
     var ctx = canvas.getContext('2d')
     var fullWidth = getInnerWidth(el) - 15
     var unitSize = fullWidth / longestRow(rows)
-    var colors = config && config.colors || ['#5f8ace', '#d4c52e', '#77a66f', '#a7784e']
+    var colors = config && config.colors || ['#5f8ace', '#d4c52e', '#a7784e', '#77a66f']
     canvas.width = fullWidth
     canvas.height = unitSize  * rows.length * 1.2
     draw(rows, ctx, fullWidth, unitSize, colors)
@@ -32,17 +32,22 @@ function textToMarbles(config) {
 
 function longestRow(rows) {
   return rows.reduce(function(a, b) {
-    if(a.length > b.length) return a
+    if(typeof b === 'string' || a.length >= b.length) return a
     return b
   }, []).length + 1
 }
 
 function textToRows(el) {
   return el.innerHTML
-    .replace(/ +?/g, '')
+    .trim()
     .split('\n')
-    .filter(Boolean)
-    .map(function(x){return x.split(',')})
+    .map(formatRow)
+}
+
+function formatRow(s) {
+  s = s.trim()
+  if(s.charAt(0) === '#') return s.substr(1).trim()
+  return s.replace(/ +?/g, '').split(',')
 }
 
 function getInnerWidth(el) {
@@ -56,10 +61,22 @@ function getInnerWidth(el) {
 function draw(rows, ctx, fullWidth, unitSize, colors) {
   rows.map(function(row, i) {
     var y = (i + 0.5) * unitSize * 1.2
-    horizontalLine(ctx, y, fullWidth)
+    if(typeof row === 'string') {
+      text(ctx, row, y, unitSize, fullWidth)
+      return
+    }
+    horizontalLine(ctx, y, fullWidth, unitSize)
     triangle(ctx, y, fullWidth)
     marbles(ctx, row, y, i, unitSize, colors)
   })
+}
+
+function text(ctx, row, y, unitSize, fullWidth) {
+  var fontSize = unitSize * 0.35
+  ctx.font =  fontSize + 'px monospace'
+  ctx.textAlign = 'center'
+  ctx.fillStyle = 'black' 
+  ctx.fillText(row, fullWidth / 2 + fontSize, y)
 }
 
 function horizontalLine(ctx, y, fullWidth) {
