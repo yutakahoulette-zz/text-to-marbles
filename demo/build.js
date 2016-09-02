@@ -57,7 +57,7 @@ function longestRow(rows) {
 }
 
 function textToRows(el) {
-  return el.innerHTML
+  return el.textContent
     .trim()
     .split('\n')
     .map(formatRow)
