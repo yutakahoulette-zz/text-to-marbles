@@ -3,9 +3,6 @@
   "version": "0.0.3",
   "description": "Converts text representations of streams/observables into static canvas visualizations",
   "main": "index.js",
-  "scripts": {
-    "demo": "open demo/index.html && watchify demo/index.js -o demo/build.js -v"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yutakahoulette/text-to-marbles.git"
@@ -23,9 +20,6 @@
   "bugs": {
     "url": "https://github.com/yutakahoulette/text-to-marbles/issues"
   },
-  "homepage": "https://github.com/yutakahoulette/text-to-marbles#readme",
-  "devDependencies": {
-    "browserify": "13.1.0",
-    "watchify": "3.7.0"
-  }
+  "homepage": "https://github.com/yutakahoulette/text-to-marbles#readme"
 }
+
