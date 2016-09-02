@@ -40,7 +40,7 @@ function textToMarbles(config) {
     var ctx = canvas.getContext('2d')
     var fullWidth = getInnerWidth(el) - 15
     var unitSize = fullWidth / longestRow(rows)
-    var colors = config && config.colors || ['#5f8ace', '#d4c52e', '#a7784e', '#77a66f']
+    var colors = config && config.colors || ['#5f8ace', '#d4c52e', '#77a66f', '#a7784e']
     canvas.width = fullWidth
     canvas.height = unitSize  * rows.length * 1.2
     draw(rows, ctx, fullWidth, unitSize, colors)
@@ -81,12 +81,11 @@ function draw(rows, ctx, fullWidth, unitSize, colors) {
   rows.map(function(row, i) {
     var y = (i + 0.5) * unitSize * 1.2
     if(typeof row === 'string') {
-      text(ctx, row, y, unitSize, fullWidth)
-      return
+      return text(ctx, row, y, unitSize, fullWidth)
     }
     horizontalLine(ctx, y, fullWidth, unitSize)
     triangle(ctx, y, fullWidth)
-    marbles(ctx, row, y, i, unitSize, colors)
+    marbles(ctx, row, rows, y, i, unitSize, colors)
   })
 }
 
@@ -117,9 +116,10 @@ function triangle(ctx, y, fullWidth) {
   ctx.fill()
 }
 
-function marbles(ctx, row, y, i, unitSize, colors) {
+function marbles(ctx, row, rows, y, i, unitSize, colors) {
   var radius = unitSize / 2 
   var x = 0
+  if(typeof rows[i-1] === 'string') i-- 
   row.map(function(unit) {
     x += unitSize 
     if(unit && unit != '|') {
